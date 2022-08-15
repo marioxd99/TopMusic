@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% set likesUser = song.likeUser | split(',') %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <section class="content-item grey" id="gallery-item">
+        <div style="float:left;margin-left: 10px; ">
+        <div class="container" style="padding: 8px;margin-top: 35px;background: #BBBBBB">
+            <div class="row">
+                <div class="col">
+                    <img src="{{ asset('/images/' ~ song.image ) }}" class="img-responsive zoom"style="width: 700px;height: 500px">
+                </div>
+                <div class="col">
+                    <h1><strong>Title: </strong>{{ song.title }}</h1>
+                    <h2> <strong>Artist: </strong>{{ song.artist }}</h2>
+                    <div class="box">
+                        <h3><strong>Genre: </strong>{{ song.genre }}</h3>
+                    </div>
+                    <div class="box">
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <h3><i id="countLikes" class="fa fa-heart"> {{ song.likes }} likes </i></h3>
+                    <a href="#comments"  class="btn btn-normal scroll">
+                        {% if app.user.id in likesUser %}
+                            <div id="meGusta" style="width: 80px">Te ha gustado esto</div>
+                        {% else %}
+                            <div class="my-3" id="teHaGustado" onclick="MeGusta({{ song.id }})">
+                                <i class="fa fa-thumbs-up" style="cursor:pointer;"></i>
+                                <strong style="cursor:pointer;">¿Te gusta?</strong>
+                            </div>
+                        {% endif %}
+                        <div style="display: none" id="meGusta">
+                            Te ha gustado esto
+                        </div>
+                    </a>
+                    <hr>
+                    <div style="margin-top: 80px;">
+                        <a class="btn btn-warning" href="{{ path('update', {'id': song.id}) }}">Update</a>
+                        <a class="btn btn-danger" onclick="DeleteSongShow({{ song.id }})">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div style="float:right;margin-right: 200px; ">
+            <textarea id="comentArea" name="w3review" rows="4" cols="50" style="margin-top: 50px">
+            </textarea>
+            <button onclick="commentSong({{ song.id }})" class="btn btn-info pull-right" style="display: block;position: fixed">Comment</button>
+            <ul class="media-list" style="margin-top: 50px">
+            <div class="scroll">
+                {% for comment in comments %}
+                    <li class="media" id="commentShow">
+                        <a href="#" class="pull-left">
+                            <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
+                        </a>
+                        <div class="media-body">
+                            <strong class="text-success">{{ comment.authorName }}</strong>
+                            <p>
+                                {{ comment.content }}
+                            </p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </div>
+            </ul>
+        </div>
+    </section>
+
+    <style>
+        .zoom{
+            transition: transform .2s;
+        }
+
+        .zoom:hover{
+            transform: scale(1.1);
+        }
+        .scroll{
+            height:320px;
+            overflow: hidden;
+            overflow-y : scroll;
+            width: 100px;
+        }
+        .scroll::-webkit-scrollbar{
+            width: 12px;
+        }
+        .scroll::-webkit-scrollbar-thumb{
+            background : #ff9d00;
+        }
+    </style>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('ajax-call.js') }}"></script>
+{% endblock %}
+

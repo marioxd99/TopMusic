@@ -7,14 +7,32 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.12",
+        "friendsofsymfony/jsrouting-bundle": "^3.2",
+        "sensio/framework-extra-bundle": "^6.2",
+        "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",
         "symfony/dotenv": "6.1.*",
         "symfony/flex": "^2",
+        "symfony/form": "6.1.*",
         "symfony/framework-bundle": "6.1.*",
+        "symfony/google-mailer": "6.1.*",
+        "symfony/mailer": "6.1.*",
+        "symfony/maker-bundle": "^1.45",
+        "symfony/mime": "6.1.*",
+        "symfony/notifier": "6.1.*",
+        "symfony/proxy-manager-bridge": "6.1.*",
         "symfony/runtime": "6.1.*",
-        "symfony/yaml": "6.1.*"
-    },
-    "require-dev": {
+        "symfony/security-bundle": "6.1.*",
+        "symfony/sendgrid-mailer": "6.1.*",
+        "symfony/twig-bundle": "6.1.*",
+        "symfony/validator": "6.1.*",
+        "symfony/yaml": "6.1.*",
+        "symfonycasts/verify-email-bundle": "^1.11",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -67,5 +85,15 @@
             "allow-contrib": false,
             "require": "6.1.*"
         }
+    },
+    "require-dev": {
+        "dama/doctrine-test-bundle": "^7.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "6.1.*",
+        "symfony/css-selector": "6.1.*",
+        "symfony/phpunit-bridge": "^6.1",
+        "symfony/stopwatch": "6.1.*",
+        "symfony/web-profiler-bundle": "6.1.*"
     }
 }

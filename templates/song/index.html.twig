@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SongController!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" id="flashMessage">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <label>Search Song: </label>
+    <input type="text" id="searchSong"></br>
+    <a href="{{ path('add') }}" class="btn btn-primary" style="margin-bottom: 8px;;margin-left: 5px;margin-top: 10px;;padding: 10px">Create new song</a>
+    <div class="row scroll" style="padding: 20px;background: #DDDDDD">
+          <!-- Single Advisor-->
+          {% for song in songs %}
+          <div class="col-12 col-sm-6 col-lg-3" id="song-{{ song.id }}">
+            <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+              <!-- Team Thumb-->
+              <div class="advisor_thumb">
+                  <a href="{{ path('showSong', {'id': song.id}) }}">
+              <img src="{{ asset('/images/' ~ song.image ) }}" class="img-responsive zoom"style="width: 500px;height: 300px">
+                  </a>
+                <!-- Social Info-->
+                <div class="social-info"><a href="{{ path('update', {'id': song.id}) }}"><i class="fa fa-pencil"></i></a><a onclick="DeleteSong({{ song.id }})"><i class="fa fa-trash"></i></a><a href="#"><i class="fa fa-heart"> {{ song.likes }}</i></a></div>
+              </div>
+              <!-- Team Details-->
+              <div class="single_advisor_details_info">
+                  <h6>{{ song.title }}</h6>
+                  <p class="designation">{{ song.artist }}</p>
+                  <p class="designation">{{ song.genre }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+{#    <div style="padding: 8px">#}
+{#        <table class="table display responsive nowrap" style="width:100%" id="tablePosts">#}
+{#            <thead>#}
+{#            <tr>#}
+{#                <th scope="col">#</th>#}
+{#                <th scope="col">Title</th>#}
+{#                <th scope="col">Artist</th>#}
+{#                <th scope="col">Genre</th>#}
+{#                <th scope="col">Update</th>#}
+{#                <th scope="col">Delete</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for song in songs %}#}
+{#                <tr>#}
+{#                    <th scope="row">1</th>#}
+{#                    <td><a href="{{ path('showSong', {'id': song.id}) }}">{{ song.title }}</a></td>#}
+{#                    <td>{{ song.artist }}</td>#}
+{#                    <td>{{ song.genre }}</td>#}
+{#                    <td><a class="btn btn-warning" href="{{ path('update', {'id': song.id}) }}">Update</a></td>#}
+{#                    <td><a class="btn btn-danger" href="{{ path('delete',{'id': song.id}) }}">Delete</a></td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/songs.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('jquery.dataTables.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('jquery-3.6.0.js') }}"></script>
+    <script src="{{ asset('jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('index.js') }}"></script>
+    <script src="{{ asset('dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('ajax-call.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
